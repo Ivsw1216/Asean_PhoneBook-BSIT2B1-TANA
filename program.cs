@@ -13,7 +13,11 @@ namespace AseanPhonebookApp
         public string ShortLabel { get; }
         public int CountryCode { get; }
 
-        public CountryInfo(int menuChoice, string name, string shortLabel, int countryCode)
+        public CountryInfo(
+            int menuChoice, 
+            string name, 
+            string shortLabel, 
+            int countryCode)
         {
             MenuChoice = menuChoice;
             Name = name;
@@ -28,7 +32,10 @@ namespace AseanPhonebookApp
         public int AreaCode { get; set; }
         public string Number { get; set; }
 
-        public PhoneNumber(int countryCode, int areaCode, string number)
+        public PhoneNumber(
+            int countryCode, 
+            int areaCode, 
+            string number)
         {
             CountryCode = countryCode;
             AreaCode = areaCode;
@@ -38,7 +45,38 @@ namespace AseanPhonebookApp
 
     public sealed class Student
     {
+        public string StudentNumber { get; set; }
+        public string Surname { get; set; }
+        public string FirstName { get; set; }
 
+        public string Occupation { get; set; }
+        public char Gender { get; set; }
+
+        public int CountryCode { get; set; }
+        public int AreaCode { get; set; }
+        public string PhoneNumber { get; set; }
+
+        public Student(
+            string studentNumber,
+            string surname,
+            string firstName,
+            string occupation,
+            char gender,
+            int countryCode,
+            int areaCode,
+            string phoneNumber)
+        {
+            StudentNumber = studentNumber;
+            Surname = surname;
+            FirstName = firstName;
+
+            Occupation = occupation;
+            Gender = gender;
+
+            CountryCode = countryCode;
+            AreaCode = areaCode;
+            PhoneNumber = phoneNumber;
+        }
     }
 
     public sealed class CountryCatalog
