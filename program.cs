@@ -52,8 +52,8 @@ namespace AseanPhonebookApp
         public string Occupation { get; set; }
         public char Gender { get; set; }
 
-        public int CountryCode { get; set; }
-        public int AreaCode { get; set; }
+        //public int CountryCode { get; set; }
+        //public int AreaCode { get; set; }
         public string PhoneNumber { get; set; }
 
         public Student(
@@ -62,35 +62,76 @@ namespace AseanPhonebookApp
             string firstName,
             string occupation,
             char gender,
-            int countryCode,
-            int areaCode,
-            string phoneNumber)
+            //int countryCode,
+            //int areaCode,
+            PhoneNumber phone)
         {
             StudentNumber = studentNumber;
             Surname = surname;
             FirstName = firstName;
-
             Occupation = occupation;
             Gender = gender;
-
-            CountryCode = countryCode;
-            AreaCode = areaCode;
-            PhoneNumber = phoneNumber;
+            // CountryCode = countryCode;
+            // AreaCode = areaCode;
+            Phone = phone;
         }
     }
 
+    //This should hold the five asean countries
     public sealed class CountryCatalog
     {
 
     }
 
+    //This should manage the in-memory collection of students objects, also the phonebook operation
     public sealed class PhonebookManager
     {
+        //need memory list and something that exposes the stored students
 
+        public void AddStudent(Student student)
+        {
+            //later
+        }
     }
 
     public sealed class ConsoleApp
     {
+
+        //need references
+        
+        public void Run()
+        {
+            while (true)
+            {
+                ShowMainMenu();
+                int choice = ReadInt("Enter choice: ");
+
+                switch (choice)
+                {
+                    case 1:
+                        HandleStore();
+                        break;
+                    case 2:
+                        HandleEdit();
+                        break;
+                    case 3:
+                        HandleSearch();
+                        break;
+                    case 4:
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option. Please try again.\n");
+                        break;
+                }
+            }
+        private static void ShowMainMenu()
+        {
+            Console.WriteLine("MAIN MENU");
+            Console.WriteLine("[1] Store to ASEAN phonebook");
+            Console.WriteLine("[2] Edit entry in ASEAN phonebook");
+            Console.WriteLine("[3] Search ASEAN phonebook by country");
+            Console.WriteLine("[4] Exit");
+        }
 
     }
 }
