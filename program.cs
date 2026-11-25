@@ -1,8 +1,4 @@
-using AseanPhonebookApp;
-using Microsoft.VisualBasic;
 using System;
-using System.Diagnostics.Metrics;
-using System.Numerics;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -193,234 +189,234 @@ namespace AseanPhonebookApp
                         break;
                 }
             }
-            private static void ShowMainMenu()
-            {
-                Console.WriteLine("MAIN MENU");
-                Console.WriteLine("[1] Store to ASEAN phonebook");
-                Console.WriteLine("[2] Edit entry in ASEAN phonebook");
-                Console.WriteLine("[3] Search ASEAN phonebook by country");
-                Console.WriteLine("[4] Exit");
-            }
-
-            // Prompts for student fields, creates PhoneNumber and Student objects, and stores them
-            private void HandleStore()
-            {
-                // Allow adding one or more students in a row
-                do
-                {
-                    Console.Write("Enter student number: ");
-                    string studentNumber = (Console.ReadLine() ?? string.Empty).Trim();
-                    Console.Write("Enter surname: ");
-                    string surname = (Console.ReadLine() ?? string.Empty).Trim();
-                    Console.Write("Enter first name: ");
-                    string firstName = (Console.ReadLine() ?? string.Empty).Trim();
-                    Console.Write("Enter occupation: ");
-                    string occupation = (Console.ReadLine() ?? string.Empty).Trim();
-                
-                    char gender = ReadGender("Enter gender (M for male, F for female): ");
-                    int countryCode = ReadValidCountryCode("Enter country code: ");
-                    int areaCode = ReadInt("Enter area code: ");
-                
-                    Console.Write("Enter number: ");
-                    string number = (Console.ReadLine() ?? string.Empty).Trim();
-
-                    // Instantiate PhoneNumber and Student objects and save them to PhonebookManager
-                    var phone = new PhoneNumber(countryCode, areaCode, number);
-                    var student = new Student(studentNumber, surname, firstName, occupation, gender, phone);
-                    _phonebook.AddStudent(student);
-                }
-                while (ReadYesNo("Do you want to enter another entry [Y/N]? "));
-
-                Console.WriteLine();
-            }
-
-            private void HandleEdit()
+        }
+        private static void ShowMainMenu()
+        {
+            Console.WriteLine("MAIN MENU");
+            Console.WriteLine("[1] Store to ASEAN phonebook");
+            Console.WriteLine("[2] Edit entry in ASEAN phonebook");
+            Console.WriteLine("[3] Search ASEAN phonebook by country");
+            Console.WriteLine("[4] Exit");
+        }
+    
+        // Prompts for student fields, creates PhoneNumber and Student objects, and stores them
+        private void HandleStore()
+        {
+            // Allow adding one or more students in a row
+            do
             {
                 Console.Write("Enter student number: ");
-                string targetNumber = (Console.ReadLine() ?? string.Empty).Trim();
+                string studentNumber = (Console.ReadLine() ?? string.Empty).Trim();
+                Console.Write("Enter surname: ");
+                string surname = (Console.ReadLine() ?? string.Empty).Trim();
+                Console.Write("Enter first name: ");
+                string firstName = (Console.ReadLine() ?? string.Empty).Trim();
+                Console.Write("Enter occupation: ");
+                string occupation = (Console.ReadLine() ?? string.Empty).Trim();
+            
+                char gender = ReadGender("Enter gender (M for male, F for female): ");
+                int countryCode = ReadValidCountryCode("Enter country code: ");
+                int areaCode = ReadInt("Enter area code: ");
+            
+                Console.Write("Enter number: ");
+                string number = (Console.ReadLine() ?? string.Empty).Trim();
 
-                Student? student = _phonebook.FindByStudentNumber(targetNumber);
-                if (student is null)
-                {
-                    Console.WriteLine($"Error: Student number '{targetNumber}' was not found.\n");
-                    return;
-                }
+                    // Instantiate PhoneNumber and Student objects and save them to PhonebookManager
+                var phone = new PhoneNumber(countryCode, areaCode, number);
+                var student = new Student(studentNumber, surname, firstName, occupation, gender, phone);
+                _phonebook.AddStudent(student);
+            }
+            while (ReadYesNo("Do you want to enter another entry [Y/N]? "));
+            Console.WriteLine();
+        }
 
-                while (true)
-                {
-                    Console.WriteLine($"Here is the existing information about {student.StudentNumber}:");
-                    Console.WriteLine(student.FormatEditSummary());
-                    Console.WriteLine("Which of the following information do you wish to change?");
-                    Console.WriteLine("[1] Student number  [2] Surname       [3] Gender       [4] Occupation");
-                    Console.WriteLine("[5] Country code    [6] Area code     [7] Phone number");
-                    Console.WriteLine("[8] None Go back to main menu");
+        private void HandleEdit()
+        {
+            Console.Write("Enter student number: ");
+            string targetNumber = (Console.ReadLine() ?? string.Empty).Trim();
 
-                    int option = ReadInt("Enter choice: ");
-                    switch (option)
-                    {
-                        case 1:
-                            Console.Write("Enter new student number: ");
-                            student.StudentNumber = (Console.ReadLine() ?? string.Empty).Trim();
-                            break;
-                        case 2:
-                            Console.Write("Enter new surname: ");
-                            student.Surname = (Console.ReadLine() ?? string.Empty).Trim();
-                            break;
-                        case 3:
-                            student.Gender = ReadGender("Enter new gender (M for male, F for female): ");
-                            break;
-                        case 4:
-                            Console.Write("Enter new occupation: ");
-                            student.Occupation = (Console.ReadLine() ?? string.Empty).Trim();
-                            break;
-                        case 5:
-                            student.Phone.CountryCode = ReadValidCountryCode("Enter new country code: ");
-                            break;
-                        case 6:
-                            student.Phone.AreaCode = ReadInt("Enter new area code: ");
-                            break;
-                        case 7:
-                            Console.Write("Enter new number: ");
-                            student.Phone.Number = (Console.ReadLine() ?? string.Empty).Trim();
-                            break;
-                        case 8:
-                            Console.WriteLine();
-                            return;
-                        default:
-                            Console.WriteLine("Invalid edit option. Please choose 1 to 8.");
-                            break;
-                    }
-                    Console.WriteLine();
-                }
+            Student? student = _phonebook.FindByStudentNumber(targetNumber);
+            if (student is null)
+            {
+                Console.WriteLine($"Error: Student number '{targetNumber}' was not found.\n");
+                return;
             }
 
-            private void Handle Search()
+            while (true)
             {
-                Console.WriteLine("From which country:");
-                Console.WriteLine("[1] Philippines  [2] Thailand  [3] Singapore  [4] Indonesia");
-                Console.WriteLine("[5] Malaysia     [6] ALL       [0] No More");
+                Console.WriteLine($"Here is the existing information about {student.StudentNumber}:");
+                Console.WriteLine(student.FormatEditSummary());
+                Console.WriteLine("Which of the following information do you wish to change?");
+                Console.WriteLine("[1] Student number  [2] Surname       [3] Gender       [4] Occupation");
+                Console.WriteLine("[5] Country code    [6] Area code     [7] Phone number");
+                Console.WriteLine("[8] None Go back to main menu");
 
-                var selectedCodes = new List<int>();
-                var selectedLabels = new List<string>();
-                bool includeAll = false;
-                int step = 1;
-
-                // Collect country choices until user enters 0 (No More) or 6 (ALL)
-                while (true)
+                int option = ReadInt("Enter choice: ");
+                switch (option)
                 {
-                    int choice = ReadInt($"Enter choice {step}: ");
-                    step++;
-
-                    if (choice == 0)
-                    {
+                    case 1:
+                        Console.Write("Enter new student number: ");
+                        student.StudentNumber = (Console.ReadLine() ?? string.Empty).Trim();
                         break;
-                    }
-
-                    if (choice == 6)
-                    {
-                        includeAll = true;
+                    case 2:
+                        Console.Write("Enter new surname: ");
+                        student.Surname = (Console.ReadLine() ?? string.Empty).Trim();
                         break;
-                    }
-
-                    //Map menu selection (1-5) to a CountryInfo record
-                    CountryInfo? country = _catalog.FindByMenuChoice(choice);
-                    if (country is null)
-                    {
-                        Console.WriteLine("Invalid country option. Choose 0-6.");
-                        step--;
-                        continue;
-                    }
-
-                    //Avoid adding duplicate country codes if the same option is picked twice
-                    if (!selectedCodes.Contains(country.CountryCode))
-                    {
-                        selectedCodes.Add(country.CountryCode);
-                        selectedLabels.Add(country.ShortLabel);
-                    }
-                }
-
-                //Retrieve matching students
-                List<Student> matches = _phonebook.SearchByCountryCodes(selectedCodes, includeAll);
-
-                if (includeAll)
-                {
-                    Console.WriteLine("Here are the students from ALL ASEAN countries:");
-                }
-                else if (selectedLabels.Count > 0)
-                {
-                    Console.WriteLine($"Here are the students from {string.Join(" and ", selectedLabels)}:");
-                }
-                else
-                {
-                    Console.WriteLine("No countries selected.");
-                }
-
-                //this print each matching student formatted entry
-                foreach (Student s in matches)
-                {
-                    Console.WriteLine(s.FormatSearchEntry());
+                    case 3:
+                        student.Gender = ReadGender("Enter new gender (M for male, F for female): ");
+                        break;
+                    case 4:
+                        Console.Write("Enter new occupation: ");
+                        student.Occupation = (Console.ReadLine() ?? string.Empty).Trim();
+                        break;
+                    case 5:
+                        student.Phone.CountryCode = ReadValidCountryCode("Enter new country code: ");
+                        break;
+                    case 6:
+                        student.Phone.AreaCode = ReadInt("Enter new area code: ");
+                        break;
+                    case 7:
+                        Console.Write("Enter new number: ");
+                        student.Phone.Number = (Console.ReadLine() ?? string.Empty).Trim();
+                        break;
+                    case 8:
+                        Console.WriteLine();
+                        return;
+                    default:
+                        Console.WriteLine("Invalid edit option. Please choose 1 to 8.");
+                        break;
                 }
                 Console.WriteLine();
             }
+        }
 
-            private int ReadValidCountryCode(string prompt)
+        private void HandleSearch()
+        {
+            Console.WriteLine("From which country:");
+            Console.WriteLine("[1] Philippines  [2] Thailand  [3] Singapore  [4] Indonesia");
+            Console.WriteLine("[5] Malaysia     [6] ALL       [0] No More");
+
+            var selectedCodes = new List<int>();
+            var selectedLabels = new List<string>();
+            bool includeAll = false;
+            int step = 1;
+
+            // Collect country choices until user enters 0 (No More) or 6 (ALL)
+            while (true)
             {
-                while (true)
+                int choice = ReadInt($"Enter choice {step}: ");
+                step++;
+                
+                if (choice == 0)
                 {
-                    int code = ReadInt(prompt);
-                    if (_catalog.IsValidCountryCode(code))
-                    {
-                        return code;
-                    }
+                    break;
+                }
 
-                    // Reject unsupported codes and prompt again
-                    Console.WriteLine("Invalid ASEAN country code. Allowed codes: 60 (Malaysia), 62 (Indonesia), 63 (Philippines), 65 (Singapore), 66 (Thailand).");
+                if (choice == 6)
+                {
+                    includeAll = true;
+                    break;
+                }
+
+                //Map menu selection (1-5) to a CountryInfo record
+                CountryInfo? country = _catalog.FindByMenuChoice(choice);
+                if (country is null)
+                {
+                    Console.WriteLine("Invalid country option. Choose 0-6.");
+                    step--;
+                    continue;
+                }
+
+                //Avoid adding duplicate country codes if the same option is picked twice
+                if (!selectedCodes.Contains(country.CountryCode))
+                {
+                    selectedCodes.Add(country.CountryCode);
+                    selectedLabels.Add(country.ShortLabel);
                 }
             }
 
-            // Loops until the user types a valid whole number (int)
-            private static int ReadInt(string prompt)
+            //Retrieve matching students
+            List<Student> matches = _phonebook.SearchByCountryCodes(selectedCodes, includeAll);
+
+            if (includeAll)
             {
-                while (true)
-                {
-                    Console.Write(prompt);
-                    string? input = Console.ReadLine();
-                    if (int.TryParse(input, out int value))
-                    {
-                        return value;
-                    }
-                    Console.WriteLine("Please enter a valid integer.");
-                }
+                Console.WriteLine("Here are the students from ALL ASEAN countries:");
+            }
+            else if (selectedLabels.Count > 0)
+            {
+                Console.WriteLine($"Here are the students from {string.Join(" and ", selectedLabels)}:");
+            }
+            else
+            {
+                Console.WriteLine("No countries selected.");
             }
 
-            // Loops until the user enters 'M' or 'F' (case-insensitive)
-            private static char ReadGender(string prompt)
+            //this print each matching student formatted entry
+            foreach (Student s in matches)
             {
-                while(true)
-                {
-                    Console.Write(prompt);
-                    string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
-                    if (input == "M" || input == "F")
-                    {
-                        return input[0];
-                    }
-                    Console.WriteLine("Please enter M or F.");
-                }
+                Console.WriteLine(s.FormatSearchEntry());
             }
+            Console.WriteLine();
+        }
 
-            private static bool ReadYesNo(string prompt)
+        private int ReadValidCountryCode(string prompt)
+        {
+            while (true)
             {
-                while (true)
+                int code = ReadInt(prompt);
+                if (_catalog.IsValidCountryCode(code))
                 {
-                    Console.Write(prompt);
-                    string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
-                    if (input == "Y") return true;
-                    if (input == "N") return false;
-                    Console.WriteLine("Please enter Y or N");
+                    return code;
                 }
+
+                // Reject unsupported codes and prompt again
+                Console.WriteLine("Invalid ASEAN country code. Allowed codes: 60 (Malaysia), 62 (Indonesia), 63 (Philippines), 65 (Singapore), 66 (Thailand).");
+            }
+        }
+
+        // Loops until the user types a valid whole number (int)
+        private static int ReadInt(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (int.TryParse(input, out int value))
+                {
+                    return value;
+                }
+                Console.WriteLine("Please enter a valid integer.");
+            }
+        }
+
+        // Loops until the user enters 'M' or 'F' (case-insensitive)
+        private static char ReadGender(string prompt)
+        {
+            while(true)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
+                if (input == "M" || input == "F")
+                {
+                    return input[0];
+                }
+                Console.WriteLine("Please enter M or F.");
+            }
+        }
+
+        private static bool ReadYesNo(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
+                if (input == "Y") return true;
+                if (input == "N") return false;
+                Console.WriteLine("Please enter Y or N");
             }
         }
     }
+    
 
     internal static class Program
     {
