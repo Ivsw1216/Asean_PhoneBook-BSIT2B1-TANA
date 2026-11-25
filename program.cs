@@ -363,7 +363,20 @@ namespace AseanPhonebookApp
                 Console.WriteLine();
             }
 
-            private int ReadValidCountryCode(string prompt){}
+            private int ReadValidCountryCode(string prompt)
+            {
+                while (true)
+                {
+                    int code = ReadInt(prompt);
+                    if (_catalog.IsValidCountryCode(code))
+                    {
+                        return code;
+                    }
+
+                    // Reject unsupported codes and prompt again
+                    Console.WriteLine("Invalid ASEAN country code. Allowed codes: 60 (Malaysia), 62 (Indonesia), 63 (Philippines), 65 (Singapore), 66 (Thailand).");
+                }
+            }
 
             // Loops until the user types a valid whole number (int)
             private static int ReadInt(string prompt){}
