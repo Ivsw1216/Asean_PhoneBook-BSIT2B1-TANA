@@ -379,10 +379,46 @@ namespace AseanPhonebookApp
             }
 
             // Loops until the user types a valid whole number (int)
-            private static int ReadInt(string prompt){}
+            private static int ReadInt(string prompt)
+            {
+                while (true)
+                {
+                    Console.Write(prompt);
+                    string? input = Console.ReadLine();
+                    if (int.TryParse(input, out int value))
+                    {
+                        return value;
+                    }
+                    Console.WriteLine("Please enter a valid integer.");
+                }
+            }
 
             // Loops until the user enters 'M' or 'F' (case-insensitive)
-            private static char ReadGender(string prompt){}
+            private static char ReadGender(string prompt)
+            {
+                while(true)
+                {
+                    Console.Write(prompt);
+                    string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
+                    if (input == "M" || input == "F")
+                    {
+                        return input[0];
+                    }
+                    Console.WriteLine("Please enter M or F.");
+                }
+            }
+
+            private static bool ReadYesNo(string prompt)
+            {
+                while (true)
+                {
+                    Console.Write(prompt);
+                    string? input = Console.ReadLine()?.Trim().ToUpperInvariant();
+                    if (input == "Y") return true;
+                    if (input == "N") return false;
+                    Console.WriteLine("Please enter Y or N");
+                }
+            }
         }
     }
 
